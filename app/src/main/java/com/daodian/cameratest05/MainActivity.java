@@ -1,37 +1,40 @@
 package com.daodian.cameratest05;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.Activity;
+
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ListView;
 
-public class MainActivity extends AppCompatActivity {
 
-    private Button button, change;
+public class MainActivity extends MyActivity {
+
+    private Button confirmationOrder;
     private ImageView imageView;
     private CameraPreview mPreview;
     private FrameLayout preview;
-    private int cameraId = 0;
-    private int jiaodu = 270;
+    private int cameraId = 1;
+    private int jiaodu = 180;
+//    private Animation translate;//获取平移动画资源
+
+    private CommodityAdapter adapter;
+    private ListView listView;
 
     @Override
     protected void onResume() {
         super.onResume();
 
         verifyStoragePermissions(MainActivity.this);
-
-
-
         init();
     }
 
@@ -40,52 +43,52 @@ public class MainActivity extends AppCompatActivity {
         mPreview = null;
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
-        verifyStoragePermissions(MainActivity.this);
-
-        button = findViewById(R.id.button_capture_photo);
-        change = findViewById(R.id.change);
-        imageView = findViewById(R.id.image);
+        initView();
+        openScan();
 
 
-        button.setOnClickListener(new View.OnClickListener() {
+        adapter = new CommodityAdapter(this);
+        listView.setAdapter(adapter);
+
+
+        confirmationOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPreview.takePicture(imageView);
-            }
-        });
-        change.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mPreview.destroy();
-                mPreview = null;
-
                 Intent intent = new Intent(MainActivity.this, MainActivity2.class);
                 startActivity(intent);
             }
         });
 
+    }
 
+    //扫描效果
+    public void openScan(){
+        imageView.bringToFront();
+        imageView.startAnimation(MyApplication.getTranslate());
+    }
 
+    public void initView(){
+        preview = findViewById(R.id.camera_preview);
+        imageView = findViewById(R.id.image);
+        listView = findViewById(R.id.list);
+        imageView = findViewById(R.id.imageView);
+        confirmationOrder = findViewById(R.id.confirmation_order);
     }
 
     public void init(){
         if (mPreview == null){
-            preview = (FrameLayout) findViewById(R.id.camera_preview);
             mPreview = new CameraPreview(this, cameraId, jiaodu, preview);
-
             preview.addView(mPreview);
 
         }
     }
 
-
+    //动态权限获取
     public static void verifyStoragePermissions(Activity activity) {
         final int REQUEST_EXTERNAL_STORAGE = 1;
         final String[] PERMISSIONS_STORAGE = {

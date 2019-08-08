@@ -1,30 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg"
     android:gravity="center"
-    android:orientation="vertical"
-    android:layout_height="match_parent">
-    <FrameLayout
-        android:id="@+id/camera_preview"
-        android:layout_width="800px"
-        android:layout_height="800px"
-        />
+    android:paddingLeft="200px"
+    android:paddingRight="100px"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:gravity="center"
+        android:paddingTop="100px"
+        android:layout_weight="2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请将商品放置在商品扫描区"
+            android:textSize="100px"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingTop="50px"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="5">
 
 
-    <Button
-        android:id="@+id/button_capture_photo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="拍照" />
+        <RelativeLayout
+            android:layout_width="800px"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/change"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="切换" />
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="790px"
+                android:layout_height="800px"
+                android:alpha="0.07"
+                android:background="#0022FF"
+                android:visibility="visible"
+                android:layout_marginLeft="5px"/>
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:id="@+id/image"/>
+            <FrameLayout
+                android:id="@+id/camera_preview"
+                android:layout_width="800px"
+                android:layout_height="600px"
+                android:paddingTop="-2px" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="100px"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="40px"
+                android:text="     名称           单价      数量      总价"/>
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/list">
+
+
+            </ListView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="2">
+
+            <TextView
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_weight="2"/>
+
+            <LinearLayout
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingLeft="200px"
+                android:layout_weight="2">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="50px"
+                    android:text="总价：￥1000"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="50px"
+                    android:text="总数量：500"/>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:paddingRight="100px"
+                android:paddingTop="30px"
+                android:layout_weight="1">
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/confirmation_order"
+                    android:text="确认订单"/>
+
+            </RelativeLayout>
+
+
+    </LinearLayout>
+
 </LinearLayout>
